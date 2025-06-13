@@ -35,14 +35,42 @@
 // export default App
 
 
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import Home from "./pages/Home";
+import TodoDetail from "./pages/TodoDetail";
+import NotFound from "./pages/NotFound";
+import ErrorBoundary from "./components/ErrorBoundary";
 
-
-import { Outlet } from '@tanstack/react-router'
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Home />,
+    errorElement: <ErrorBoundary />,
+  },
+  {
+    path: "/todos/:id",
+    element: <TodoDetail />,
+  },
+  {
+    path: "*",
+    element: <NotFound />,
+  },
+]);
 
 export default function App() {
   return (
-    <div>
-      <Outlet />
-    </div>
-  )
+    <>
+      <RouterProvider router={router} />
+      <ReactQueryDevtools 
+        initialIsOpen={false} 
+        position="bottom-right"
+        toggleButtonProps={{
+          style: {
+            marginRight: '3.5rem', // Prevents overlap with other devtools
+          },
+        }}
+      />
+    </>
+  );
 }
