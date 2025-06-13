@@ -1,0 +1,50 @@
+
+.layout {
+  font-family: sans-serif;
+  max-width: 800px;
+  margin: auto;
+  padding: 1rem;
+}
+.layout__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #4CAF50;
+  color: white;
+  padding: 1rem;
+}
+.layout__nav a {
+  margin-left: 1rem;
+  color: white;
+  text-decoration: none;
+}
+.home__list {
+  list-style: none;
+  padding: 0;
+}
+.todo-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem;
+  border-bottom: 1px solid #ccc;
+}
+.todo-item__title {
+  text-decoration: none;
+  color: #333;
+}
+.todo-item--done {
+  background-color: #e6ffe6;
+}
+.todo-item--pending {
+  background-color: #fff;
+}
+.detail {
+  padding: 1rem;
+}
+.detail__title {
+  font-size: 1.5rem;
+}
+.notfound {
+  text-align: center;
+  padding: 2rem;
+}
