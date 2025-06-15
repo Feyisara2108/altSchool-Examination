@@ -70,7 +70,8 @@ const Home = () => {
     const totalPages = Math.ceil(filteredTodos.length / todosPerPage);
     
     return { currentTodos, totalPages };
-  }, [filteredTodos, currentPage, todosPerPage]);
+  },
+  [filteredTodos, currentPage, todosPerPage]);
 
   // Generate unique ID for new todos
   const generateId = () => {

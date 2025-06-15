@@ -17,16 +17,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
 import React from 'react';
 import { Link } from 'react-router-dom';
 
@@ -56,17 +46,39 @@ const TodoItem = ({ todo, onToggle }) => {
         </div>
       </div>
       
-      <div className="todo-actions">
+      {/* <div className="todo-actions">
         <button className="action-btn edit" title="Edit todo">
           ✏️
         </button>
         <button className="action-btn delete" title="Delete todo">
           🗑️
         </button>
-      </div>
+      </div> */}
+      <div className="todo-actions">
+  <button 
+    className="action-btn edit" 
+    title="Edit todo"
+    onClick={() => onEdit && onEdit(todo)}
+  >
+    ✏️
+  </button>
+  <button 
+    className="action-btn delete" 
+    title="Delete todo"
+    onClick={() => onDelete && onDelete(todo)}
+  >
+    🗑️
+  </button>
+</div>
     </li>
   );
 };
 
 export default TodoItem;
+
+
+
+
+
+
 
