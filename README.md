@@ -1,12 +1,40 @@
-# React + Vite
+# 📝 Todo App with React
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+![Todo App Screenshot](screenshot.png) <!-- Replace this with an actual screenshot image of your app -->
 
-Currently, two official plugins are available:
+A modern Todo application built with **React** and **React Router**, styled using **vanilla CSS**. It supports full CRUD operations, API integration, and a responsive UI.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+##  Features
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+-  Add, edit, and delete todos
+-  Mark todos as complete/incomplete
+-  Filter by All, Active, or Completed
+-  Pagination (10 todos per page)
+-  Clean and responsive design
+-  API integration using JSONPlaceholder
+-  Keyboard accessible and mobile-friendly
+
+---
+
+## Tech Stack
+
+- **Frontend:** React, React Router DOM
+- **Styling:** Vanilla CSS (BEM Methodology)
+- **API:** JSONPlaceholder (https://jsonplaceholder.typicode.com/)
+- **Tooling:** Vite, ESLint
+
+
+##  Installation & Setup Guide
+
+### Prerequisites
+
+- Node.js and npm installed (https://nodejs.org)
+- Git installed (https://git-scm.com)
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/Feyisara2108/altSchool-Examination
+cd your-todo-app
