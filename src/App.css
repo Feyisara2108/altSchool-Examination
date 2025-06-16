@@ -32,6 +32,12 @@
   text-decoration: none;
   color: #333;
 }
+
+.todo-header{
+  display: flex;
+  padding: 5px;
+  
+}
 .todo-item--done {
   background-color: #e6ffe6;
 }
