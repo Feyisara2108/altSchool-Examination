@@ -43,11 +43,12 @@
 
 
 // api/todos.ts
-import axios, { AxiosResponse } from "axios";
+// import type { AxiosResponse } from "axios";
+import axios, { AxiosResponse } from 'axios';
 import { Todo } from '../types';
 
 const api = axios.create({
-  baseURL: "https://jsonplaceholder.typicode.com/todos",
+  baseURL: 'https://jsonplaceholder.typicode.com/todos',
 });
 
 export const fetchTodos = async (page: number = 1): Promise<Todo[]> => {
@@ -61,7 +62,7 @@ export const fetchTodoById = async (id: string): Promise<Todo> => {
 };
 
 export const createTodo = async (todo: Partial<Todo>): Promise<Todo> => {
-  const res: AxiosResponse<Todo> = await api.post("/", todo);
+  const res: AxiosResponse<Todo> = await api.post('/', todo);
   return res.data;
 };
 
