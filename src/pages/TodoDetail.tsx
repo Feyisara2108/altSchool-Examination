@@ -35,9 +35,9 @@ import { fetchTodoById } from "../api/todos";
 import { useParams, Link } from "react-router-dom";
 import { Todo } from '../types';
 
-interface TodoDetailParams {
-  id: string;
-}
+// interface TodoDetailParams {
+//   id: string;
+// }
 
 const TodoDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
