@@ -70,8 +70,7 @@
 //     const totalPages = Math.ceil(filteredTodos.length / todosPerPage);
     
 //     return { currentTodos, totalPages };
-//   },
-//   [filteredTodos, currentPage, todosPerPage]);
+//   }, [filteredTodos, currentPage, todosPerPage]);
 
 //   // Generate unique ID for new todos
 //   const generateId = () => {
@@ -211,12 +210,19 @@
 //     setLoading(false);
 //   };
 
+//   // Get form input class names safely
+//   const getInputClassName = (hasError) => {
+//     return hasError ? 'form-input error' : 'form-input';
+//   };
+
 //   if (loading) {
 //     return (
-//       <div className="loading-container">
-//         <div className="loading-content">
-//           <div className="loading-spinner"></div>
-//           <p className="loading-text">Loading your todos...</p>
+//       <div className="app-wrapper">
+//         <div className="loading-container">
+//           <div className="loading-content">
+//             <div className="loading-spinner"></div>
+//             <p className="loading-text">Loading your todos...</p>
+//           </div>
 //         </div>
 //       </div>
 //     );
@@ -224,236 +230,269 @@
 
 //   if (error) {
 //     return (
-//       <div className="error-container">
-//         <div className="error-message">
-//           <h2>Oops! Something went wrong</h2>
-//           <p>{error}</p>
-//           <button 
-//             onClick={handleRetry} 
-//             className="retry-button"
-//           >
-//             Try Again
-//           </button>
+//       <div className="app-wrapper">
+//         <div className="error-container">
+//           <div className="error-message">
+//             <h2>Oops! Something went wrong</h2>
+//             <p>{error}</p>
+//             <button 
+//               onClick={handleRetry} 
+//               className="retry-button"
+//             >
+//               Try Again
+//             </button>
+//           </div>
 //         </div>
 //       </div>
 //     );
 //   }
 
 //   return (
-//     <div className="todo-app">
-//       <div className="todo-container">
-//         <Header />
-        
-//         {/* Controls */}
-//         <div className="todo-controls">
-//           <div className="controls-row">
-//             {/* Search */}
-//             <div className="search-container">
-//               <span className="search-icon">🔍</span>
-//               <input
-//                 type="text"
-//                 placeholder="Search todos..."
-//                 value={searchTerm}
-//                 onChange={handleSearchChange}
-//                 className="search-input"
-//               />
-//             </div>
-
-//             {/* Filter */}
-//             <div className="filter-container">
-//               <span className="filter-icon">📋</span>
-//               <select
-//                 value={filterStatus}
-//                 onChange={handleFilterChange}
-//                 className="filter-select"
-//               >
-//                 <option value="all">All Todos</option>
-//                 <option value="completed">Completed</option>
-//                 <option value="incomplete">Incomplete</option>
-//               </select>
-//             </div>
-
-//             {/* Add Todo Button */}
-//             <button 
-//               className="add-todo-btn"
-//               onClick={handleAddTodo}
-//             >
-//               <span>➕</span>
-//               Add Todo
-//             </button>
+//     <div className="app-wrapper">
+//       {/* Modern Header */}
+//       <header className="app-header">
+//         <div className="header-content">
+//           <div className="logo">
+//             <span>📋</span>
+//             <span>TaskFlow</span>
 //           </div>
+//           <nav>
+//             <ul className="nav-links">
+//               <li><a href="#" className="active">Home</a></li>
+//               <li><a href="#">Categories</a></li>
+//               <li><a href="#">Analytics</a></li>
+//               <li><a href="#">Settings</a></li>
+//             </ul>
+//           </nav>
 //         </div>
+//       </header>
 
-//         {/* Stats */}
-//         <div className="stats-grid">
-//           <div className="stat-card">
-//             <div className="stat-number total">{todos.length}</div>
-//             <div className="stat-label">Total Todos</div>
+//       {/* Main App Content */}
+//       <div className="todo-app">
+//         <div className="todo-container">
+//           {/* App Title Section */}
+//           <div className="app-title-section">
+//             <h1 className="app-title">Todo App</h1>
+//             <p className="app-subtitle">Stay organized and get things done</p>
 //           </div>
-//           <div className="stat-card">
-//             <div className="stat-number completed">
-//               {todos.filter(todo => todo.completed).length}
-//             </div>
-//             <div className="stat-label">Completed</div>
-//           </div>
-//           <div className="stat-card">
-//             <div className="stat-number remaining">
-//               {todos.filter(todo => !todo.completed).length}
-//             </div>
-//             <div className="stat-label">Remaining</div>
-//           </div>
-//         </div>
 
-//         {/* Todo List */}
-//         <div className="todos-container">
-//           <div className="todos-header">
-//             <h2 className="todos-title">
-//               Your Todos ({filteredTodos.length})
-//             </h2>
+//           {/* Use your existing Header component (hidden) */}
+//           <div style={{ display: 'none' }}>
+//             <Header />
 //           </div>
           
-//           {filteredTodos.length === 0 && dataLoaded ? (
-//             <div className="empty-state">
-//               <p>No todos found. {searchTerm || filterStatus !== 'all' ? 'Try adjusting your search or filter.' : 'Start by adding a new todo!'}</p>
-//             </div>
-//           ) : (
-//             <TodoList 
-//               todos={paginationData.currentTodos} 
-//               onToggle={toggleTodo}
-//               onEdit={handleEditTodo}
-//               onDelete={handleDeleteTodo}
-//               searchTerm={searchTerm}
-//             />
-//           )}
-//         </div>
-
-//         {/* Pagination */}
-//         {paginationData.totalPages > 1 && (
-//           <Pagination
-//             currentPage={currentPage}
-//             totalPages={paginationData.totalPages}
-//             onPageChange={setCurrentPage}
-//             totalItems={filteredTodos.length}
-//             itemsPerPage={todosPerPage}
-//           />
-//         )}
-
-//         {/* Todo Modal */}
-//         {showTodoModal && (
-//           <div className="modal-overlay" onClick={handleModalBackdropClick}>
-//             <div className="modal-content">
-//               <div className="modal-header">
-//                 <h2>{editingTodo ? 'Edit Todo' : 'Add New Todo'}</h2>
-//                 <button 
-//                   className="modal-close-btn"
-//                   onClick={handleCloseModal}
-//                   aria-label="Close modal"
-//                 >
-//                   ✕
-//                 </button>
+//           {/* Controls */}
+//           <div className="todo-controls">
+//             <div className="controls-row">
+//               {/* Search */}
+//               <div className="search-container">
+//                 <span className="search-icon">🔍</span>
+//                 <input
+//                   type="text"
+//                   placeholder="Search todos..."
+//                   value={searchTerm}
+//                   onChange={handleSearchChange}
+//                   className="search-input"
+//                 />
 //               </div>
 
-//               <form onSubmit={handleSaveTodo} className="todo-form">
-//                 <div className="form-group">
-//                   <label htmlFor="title" className="form-label">
-//                     Title <span className="required">*</span>
-//                   </label>
-//                   <input
-//                     type="text"
-//                     id="title"
-//                     value={modalTitle}
-//                     onChange={(e) => setModalTitle(e.target.value)}
-//                     className={`form-input ${formErrors.title ? 'error' : ''}`}
-//                     placeholder="Enter todo title..."
-//                     maxLength="100"
-//                   />
-//                   {formErrors.title && <span className="error-message">{formErrors.title}</span>}
-//                 </div>
+//               {/* Filter */}
+//               <div className="filter-container">
+//                 <span className="filter-icon">📋</span>
+//                 <select
+//                   value={filterStatus}
+//                   onChange={handleFilterChange}
+//                   className="filter-select"
+//                 >
+//                   <option value="all">All Todos</option>
+//                   <option value="completed">Completed</option>
+//                   <option value="incomplete">Incomplete</option>
+//                 </select>
+//               </div>
 
-//                 <div className="form-group">
-//                   <label htmlFor="description" className="form-label">
-//                     Description
-//                   </label>
-//                   <textarea
-//                     id="description"
-//                     value={modalDescription}
-//                     onChange={(e) => setModalDescription(e.target.value)}
-//                     className="form-textarea"
-//                     placeholder="Enter todo description..."
-//                     rows="3"
-//                     maxLength="500"
-//                   />
-//                 </div>
+//               {/* Add Todo Button */}
+//               <button 
+//                 className="add-todo-btn"
+//                 onClick={handleAddTodo}
+//               >
+//                 <span>➕</span>
+//                 Add Todo
+//               </button>
+//             </div>
+//           </div>
 
-//                 <div className="form-group">
-//                   <label htmlFor="priority" className="form-label">
-//                     Priority
-//                   </label>
-//                   <select
-//                     id="priority"
-//                     value={modalPriority}
-//                     onChange={(e) => setModalPriority(e.target.value)}
-//                     className="form-select"
+//           {/* Stats */}
+//           <div className="stats-grid">
+//             <div className="stat-card">
+//               <div className="stat-number total">{todos.length}</div>
+//               <div className="stat-label">Total Todos</div>
+//             </div>
+//             <div className="stat-card">
+//               <div className="stat-number completed">
+//                 {todos.filter(todo => todo.completed).length}
+//               </div>
+//               <div className="stat-label">Completed</div>
+//             </div>
+//             <div className="stat-card">
+//               <div className="stat-number remaining">
+//                 {todos.filter(todo => !todo.completed).length}
+//               </div>
+//               <div className="stat-label">Remaining</div>
+//             </div>
+//           </div>
+
+//           {/* Todo List */}
+//           <div className="todos-container">
+//             <div className="todos-header">
+//               <h2 className="todos-title">
+//                 Your Todos ({filteredTodos.length})
+//               </h2>
+//             </div>
+            
+//             {filteredTodos.length === 0 && dataLoaded ? (
+//               <div className="empty-state">
+//                 <div className="empty-state-icon">📝</div>
+//                 <p>No todos found. {searchTerm || filterStatus !== 'all' ? 'Try adjusting your search or filter.' : 'Start by adding a new todo!'}</p>
+//               </div>
+//             ) : (
+//               <TodoList 
+//                 todos={paginationData.currentTodos} 
+//                 onToggle={toggleTodo}
+//                 onEdit={handleEditTodo}
+//                 onDelete={handleDeleteTodo}
+//                 searchTerm={searchTerm}
+//               />
+//             )}
+//           </div>
+
+//           {/* Pagination */}
+//           {paginationData.totalPages > 1 && (
+//             <Pagination
+//               currentPage={currentPage}
+//               totalPages={paginationData.totalPages}
+//               onPageChange={setCurrentPage}
+//               totalItems={filteredTodos.length}
+//               itemsPerPage={todosPerPage}
+//             />
+//           )}
+
+//           {/* Todo Modal */}
+//           {showTodoModal && (
+//             <div className="modal-overlay" onClick={handleModalBackdropClick}>
+//               <div className="modal-content">
+//                 <div className="modal-header">
+//                   <h2>{editingTodo ? 'Edit Todo' : 'Add New Todo'}</h2>
+//                   <button 
+//                     className="modal-close-btn"
+//                     onClick={handleCloseModal}
+//                     aria-label="Close modal"
 //                   >
-//                     <option value="low">Low</option>
-//                     <option value="medium">Medium</option>
-//                     <option value="high">High</option>
-//                   </select>
+//                     ✕
+//                   </button>
 //                 </div>
 
-//                 <div className="modal-actions">
+//                 <form onSubmit={handleSaveTodo} className="todo-form">
+//                   <div className="form-group">
+//                     <label htmlFor="title" className="form-label">
+//                       Title <span className="required">*</span>
+//                     </label>
+//                     <input
+//                       type="text"
+//                       id="title"
+//                       value={modalTitle}
+//                       onChange={(e) => setModalTitle(e.target.value)}
+//                       className={getInputClassName(formErrors.title)}
+//                       placeholder="Enter todo title..."
+//                       maxLength="100"
+//                     />
+//                     {formErrors.title && <span className="error-message">{formErrors.title}</span>}
+//                   </div>
+
+//                   <div className="form-group">
+//                     <label htmlFor="description" className="form-label">
+//                       Description
+//                     </label>
+//                     <textarea
+//                       id="description"
+//                       value={modalDescription}
+//                       onChange={(e) => setModalDescription(e.target.value)}
+//                       className="form-textarea"
+//                       placeholder="Enter todo description..."
+//                       rows="3"
+//                       maxLength="500"
+//                     />
+//                   </div>
+
+//                   <div className="form-group">
+//                     <label htmlFor="priority" className="form-label">
+//                       Priority
+//                     </label>
+//                     <select
+//                       id="priority"
+//                       value={modalPriority}
+//                       onChange={(e) => setModalPriority(e.target.value)}
+//                       className="form-select"
+//                     >
+//                       <option value="low">Low</option>
+//                       <option value="medium">Medium</option>
+//                       <option value="high">High</option>
+//                     </select>
+//                   </div>
+
+//                   <div className="modal-actions">
+//                     <button
+//                       type="button"
+//                       className="btn-secondary"
+//                       onClick={handleCloseModal}
+//                     >
+//                       Cancel
+//                     </button>
+//                     <button
+//                       type="submit"
+//                       className="btn-primary"
+//                     >
+//                       {editingTodo ? 'Update Todo' : 'Add Todo'}
+//                     </button>
+//                   </div>
+//                 </form>
+//               </div>
+//             </div>
+//           )}
+
+//           {/* Confirm Delete Modal */}
+//           {showConfirmModal && (
+//             <div className="modal-overlay" onClick={handleConfirmBackdropClick}>
+//               <div className="confirm-modal-content">
+//                 <div className="confirm-modal-header">
+//                   <div className="confirm-icon">⚠</div>
+//                   <h3>Delete Todo</h3>
+//                 </div>
+                
+//                 <div className="confirm-modal-body">
+//                   <p>Are you sure you want to delete "{todoToDelete?.title}"? This action cannot be undone.</p>
+//                 </div>
+                
+//                 <div className="confirm-modal-actions">
 //                   <button
 //                     type="button"
 //                     className="btn-secondary"
-//                     onClick={handleCloseModal}
+//                     onClick={cancelDelete}
 //                   >
 //                     Cancel
 //                   </button>
 //                   <button
-//                     type="submit"
-//                     className="btn-primary"
+//                     type="button"
+//                     className="btn-danger"
+//                     onClick={confirmDelete}
+//                     autoFocus
 //                   >
-//                     {editingTodo ? 'Update Todo' : 'Add Todo'}
+//                     Delete
 //                   </button>
 //                 </div>
-//               </form>
-//             </div>
-//           </div>
-//         )}
-
-//         {/* Confirm Delete Modal */}
-//         {showConfirmModal && (
-//           <div className="modal-overlay" onClick={handleConfirmBackdropClick}>
-//             <div className="confirm-modal-content">
-//               <div className="confirm-modal-header">
-//                 <div className="confirm-icon">⚠️</div>
-//                 <h3>Delete Todo</h3>
-//               </div>
-              
-//               <div className="confirm-modal-body">
-//                 <p>Are you sure you want to delete "{todoToDelete?.title}"? This action cannot be undone.</p>
-//               </div>
-              
-//               <div className="confirm-modal-actions">
-//                 <button
-//                   type="button"
-//                   className="btn-secondary"
-//                   onClick={cancelDelete}
-//                 >
-//                   Cancel
-//                 </button>
-//                 <button
-//                   type="button"
-//                   className="btn-danger"
-//                   onClick={confirmDelete}
-//                   autoFocus
-//                 >
-//                   Delete
-//                 </button>
 //               </div>
 //             </div>
-//           </div>
-//         )}
+//           )}
+//         </div>
 //       </div>
 //     </div>
 //   );
@@ -477,37 +516,39 @@
 
 
 
+// pages/Home.tsx
 import React, { useState, useMemo } from 'react';
 import { fetchTodos as fetchTodosAPI } from '../api/todos';
 import TodoList from '../components/TodoList';
 import Pagination from '../components/Pagination';
 import Header from '../components/Header';
+import { Todo, FilterStatus, Priority, FormErrors } from '../types';
 
-const Home = () => {
-  const [todos, setTodos] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [filterStatus, setFilterStatus] = useState('all');
-  const [dataLoaded, setDataLoaded] = useState(false);
+const Home: React.FC = () => {
+  const [todos, setTodos] = useState<Todo[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [searchTerm, setSearchTerm] = useState<string>('');
+  const [filterStatus, setFilterStatus] = useState<FilterStatus>('all');
+  const [dataLoaded, setDataLoaded] = useState<boolean>(false);
   
   // Modal states
-  const [showTodoModal, setShowTodoModal] = useState(false);
-  const [showConfirmModal, setShowConfirmModal] = useState(false);
-  const [editingTodo, setEditingTodo] = useState(null);
-  const [todoToDelete, setTodoToDelete] = useState(null);
+  const [showTodoModal, setShowTodoModal] = useState<boolean>(false);
+  const [showConfirmModal, setShowConfirmModal] = useState<boolean>(false);
+  const [editingTodo, setEditingTodo] = useState<Todo | null>(null);
+  const [todoToDelete, setTodoToDelete] = useState<Todo | null>(null);
   
   // Form states for modal
-  const [modalTitle, setModalTitle] = useState('');
-  const [modalDescription, setModalDescription] = useState('');
-  const [modalPriority, setModalPriority] = useState('medium');
-  const [formErrors, setFormErrors] = useState({});
+  const [modalTitle, setModalTitle] = useState<string>('');
+  const [modalDescription, setModalDescription] = useState<string>('');
+  const [modalPriority, setModalPriority] = useState<Priority>('medium');
+  const [formErrors, setFormErrors] = useState<FormErrors>({});
   
   const todosPerPage = 10;
 
   // Function to fetch todos when needed
-  const loadTodos = async () => {
+  const loadTodos = async (): Promise<void> => {
     if (dataLoaded || loading) return;
     
     try {
@@ -517,7 +558,7 @@ const Home = () => {
       setTodos(data);
       setDataLoaded(true);
     } catch (err) {
-      setError(err.message);
+      setError(err instanceof Error ? err.message : 'An error occurred');
     } finally {
       setLoading(false);
     }
@@ -552,14 +593,14 @@ const Home = () => {
   }, [filteredTodos, currentPage, todosPerPage]);
 
   // Generate unique ID for new todos
-  const generateId = () => {
+  const generateId = (): number => {
     return Math.max(0, ...todos.map(todo => todo.id)) + 1;
   };
 
   // CRUD Operations
   
   // CREATE: Add new todo
-  const handleAddTodo = () => {
+  const handleAddTodo = (): void => {
     setEditingTodo(null);
     setModalTitle('');
     setModalDescription('');
@@ -569,8 +610,8 @@ const Home = () => {
   };
 
   // Form validation
-  const validateForm = () => {
-    const newErrors = {};
+  const validateForm = (): boolean => {
+    const newErrors: FormErrors = {};
     
     if (!modalTitle.trim()) {
       newErrors.title = 'Title is required';
@@ -582,7 +623,7 @@ const Home = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSaveTodo = (e) => {
+  const handleSaveTodo = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
     
     if (!validateForm()) {
@@ -604,7 +645,7 @@ const Home = () => {
       ));
     } else {
       // CREATE: Add new todo
-      const newTodo = {
+      const newTodo: Todo = {
         id: generateId(),
         userId: 1, // Default user ID
         completed: false,
@@ -617,14 +658,14 @@ const Home = () => {
   };
 
   // UPDATE: Toggle todo completion
-  const toggleTodo = (id) => {
+  const toggleTodo = (id: number): void => {
     setTodos(todos.map(todo => 
       todo.id === id ? { ...todo, completed: !todo.completed } : todo
     ));
   };
 
   // UPDATE: Edit todo
-  const handleEditTodo = (todo) => {
+  const handleEditTodo = (todo: Todo): void => {
     setEditingTodo(todo);
     setModalTitle(todo.title || '');
     setModalDescription(todo.description || '');
@@ -634,12 +675,12 @@ const Home = () => {
   };
 
   // DELETE: Remove todo
-  const handleDeleteTodo = (todo) => {
+  const handleDeleteTodo = (todo: Todo): void => {
     setTodoToDelete(todo);
     setShowConfirmModal(true);
   };
 
-  const confirmDelete = () => {
+  const confirmDelete = (): void => {
     if (todoToDelete) {
       setTodos(todos.filter(todo => todo.id !== todoToDelete.id));
       setShowConfirmModal(false);
@@ -647,50 +688,50 @@ const Home = () => {
     }
   };
 
-  const cancelDelete = () => {
+  const cancelDelete = (): void => {
     setShowConfirmModal(false);
     setTodoToDelete(null);
   };
 
   // Modal handlers
-  const handleCloseModal = () => {
+  const handleCloseModal = (): void => {
     setShowTodoModal(false);
     setEditingTodo(null);
     setFormErrors({});
   };
 
   // Handle escape key and backdrop clicks
-  const handleModalBackdropClick = (e) => {
+  const handleModalBackdropClick = (e: React.MouseEvent<HTMLDivElement>): void => {
     if (e.target === e.currentTarget) {
       handleCloseModal();
     }
   };
 
-  const handleConfirmBackdropClick = (e) => {
+  const handleConfirmBackdropClick = (e: React.MouseEvent<HTMLDivElement>): void => {
     if (e.target === e.currentTarget) {
       cancelDelete();
     }
   };
 
   // Search and filter handlers
-  const handleSearchChange = (e) => {
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setSearchTerm(e.target.value);
     setCurrentPage(1);
   };
 
-  const handleFilterChange = (e) => {
-    setFilterStatus(e.target.value);
+  const handleFilterChange = (e: React.ChangeEvent<HTMLSelectElement>): void => {
+    setFilterStatus(e.target.value as FilterStatus);
     setCurrentPage(1);
   };
 
-  const handleRetry = () => {
+  const handleRetry = (): void => {
     setError(null);
     setDataLoaded(false);
     setLoading(false);
   };
 
   // Get form input class names safely
-  const getInputClassName = (hasError) => {
+  const getInputClassName = (hasError: string | undefined): string => {
     return hasError ? 'form-input error' : 'form-input';
   };
 
@@ -882,7 +923,7 @@ const Home = () => {
                       onChange={(e) => setModalTitle(e.target.value)}
                       className={getInputClassName(formErrors.title)}
                       placeholder="Enter todo title..."
-                      maxLength="100"
+                      maxLength={100}
                     />
                     {formErrors.title && <span className="error-message">{formErrors.title}</span>}
                   </div>
@@ -897,8 +938,8 @@ const Home = () => {
                       onChange={(e) => setModalDescription(e.target.value)}
                       className="form-textarea"
                       placeholder="Enter todo description..."
-                      rows="3"
-                      maxLength="500"
+                      rows={3}
+                      maxLength={500}
                     />
                   </div>
 
@@ -909,7 +950,7 @@ const Home = () => {
                     <select
                       id="priority"
                       value={modalPriority}
-                      onChange={(e) => setModalPriority(e.target.value)}
+                      onChange={(e) => setModalPriority(e.target.value as Priority)}
                       className="form-select"
                     >
                       <option value="low">Low</option>

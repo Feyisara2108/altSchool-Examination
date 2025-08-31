@@ -1,8 +1,9 @@
 // import { StrictMode } from 'react'
 // import { createRoot } from 'react-dom/client'
 // import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+// import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 // import App from './App'
-// import './styles/main.css' // or './index.css' - use whichever exists
+// import './styles/main.css' // or './index.css'
 
 // const queryClient = new QueryClient()
 
@@ -10,7 +11,7 @@
 //   <StrictMode>
 //     <QueryClientProvider client={queryClient}>
 //       <App />
-//     </QueryClientProvider>
+//       </QueryClientProvider>
 //   </StrictMode>
 // )
 
@@ -20,28 +21,27 @@
 
 
 
+
+//  main.tsx
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import App from './App'
-import './styles/main.css' // or './index.css'
+import './styles/main.css'
 
 const queryClient = new QueryClient()
 
-createRoot(document.getElementById('root')).render(
+const rootElement = document.getElementById('root');
+if (!rootElement) {
+  throw new Error('Root element not found');
+}
+
+createRoot(rootElement).render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
       <App />
-      {/* <ReactQueryDevtools
-        initialIsOpen={false}
-        position="bottom-right"
-        toggleButtonProps={{
-          style: {
-            marginRight: '3.5rem',
-          },
-        }}
-      /> */}
+      <ReactQueryDevtools />
     </QueryClientProvider>
   </StrictMode>
 )
