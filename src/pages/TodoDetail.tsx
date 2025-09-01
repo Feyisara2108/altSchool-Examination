@@ -31,7 +31,7 @@
 // pages/TodoDetails.tsx
 import React from 'react';
 import { useQuery } from "@tanstack/react-query";
-import { fetchTodoById } from "../api/todos";
+// import { fetchTodoById } from "../api/todos";
 import { useParams, Link } from "react-router-dom";
 import { Todo } from '../types';
 
@@ -44,7 +44,7 @@ const TodoDetail: React.FC = () => {
   
   const { data: todo, isLoading, error } = useQuery<Todo, Error>({
     queryKey: ["todo", id],
-    queryFn: () => fetchTodoById(id!),
+    // queryFn: () => fetchTodoById(id!),
     enabled: !!id, // Only run query if id exists
   });
 
